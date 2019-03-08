@@ -35,23 +35,22 @@ class ProjectWorkflowSubscriber {
      */
     public function onEntered($event) {
 
-        Log::info('ProjectWorkflowSubscriber:: onEntered start .');
+        Log::debug('ProjectWorkflowSubscriber:: onEntered start .');
 
         $originalEvent = $event->getOriginalEvent();
         $project_id = $originalEvent->getSubject()->id;
         $current_place = key((array)$originalEvent->getSubject()->currentPlace);
         $last_transition = $originalEvent->getTransition()->getName();
 
-        Log::info($current_place);        
+        // 自動工程の時にタスクを起動する
         $current_task = Task::where('name', $current_place)->first();
-        Log::info($current_task);        
-
         if($current_task->type == 2) {
+            Log::debug('ProjectWorkflowSubscriber:: dispatch auto task .');
             $tmp = (new AutoTask($project_id))->delay(10);
             dispatch($tmp);
         }
 
-        Log::info('ProjectWorkflowSubscriber:: onEntered end .');
+        Log::debug('ProjectWorkflowSubscriber:: onEntered end .');
 
     }
 

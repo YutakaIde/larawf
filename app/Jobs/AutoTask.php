@@ -35,23 +35,24 @@ class AutoTask implements ShouldQueue {
      */
     public function handle() {
 
-        Log::info('AutoTask:: start .');
+        Log::debug('AutoTask:: start .');
 
         $id = $this->param;
-        $project = Project::find($id);
 
+        $project = Project::find($id);
         $workflow = Workflow::get($project);
 
 		$place = key((array)$project->currentPlace);
 
-		if ($place == 'task2') {
-        	$workflow->apply($project, "${place}_finished");
-	        Log::info("AutoTask:: ${place}_finished .");
-		}
+		// 最終の工程でないかチェックして工程の終了を行う
+        $transitions = $workflow->getEnabledTransitions($project);
+        if (!empty($transitions)) {
+		    Log::debug("AutoTask:: ${place}_finished .");
+	        $workflow->apply($project, "${place}_finished");
+        }
 
         $project->save();
-
-        Log::info('AutoTask:: end .');
+        Log::debug('AutoTask:: end .');
 
     }
 }
