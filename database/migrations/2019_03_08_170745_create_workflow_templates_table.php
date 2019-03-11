@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTasksTable extends Migration {
+class CreateWorkflowTemplatesTable extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -12,15 +13,9 @@ class CreateTasksTable extends Migration {
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
-
+        Schema::create('workflow_templates', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('workflow_id');
             $table->string('name');
-            $table->integer('type');
-            $table->string('url')->nullable();
-            $table->string('command_name')->nullable();
-            $table->string('argument')->nullable();
             $table->timestamps();
 
         });
@@ -31,7 +26,8 @@ class CreateTasksTable extends Migration {
      *
      * @return void
      */
-    public function down() {
-        Schema::dropIfExists('tasks');
+    public function down()
+    {
+        Schema::dropIfExists('workflow_templates');
     }
 }

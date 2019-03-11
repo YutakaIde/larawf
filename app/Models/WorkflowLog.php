@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class WorkflowLog extends Model
 {
 
-    protected $table = 'tasks';
+    protected $table = 'workflow_logs';
 
 }

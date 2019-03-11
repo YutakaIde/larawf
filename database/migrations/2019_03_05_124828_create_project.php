@@ -16,8 +16,9 @@ class CreateProject extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');  // 主キー
-            $table->string("title", 64);
-            $table->string("currentPlace", 64);
+            $table->string("name", 64);
+            $table->string("currentPlace", 64)->nullable();
+            $table->integer("workflow_id");
             $table->timestamps();      // created_at と updated_at カラムの作成.
         });
     }

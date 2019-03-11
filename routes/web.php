@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('sample/queues', 'SampleController@queues');
+Route::resource('/workflow/project', 'ProjectController');
+Route::resource('/workflow/workflow', 'WorkflowLogController');
+Route::resource('/workflow/file', 'FileController');
 
-Route::get('sample/task1', 'Task1@finish');
+Route::get('workflow/task/{id}', 'TaskController@finish');

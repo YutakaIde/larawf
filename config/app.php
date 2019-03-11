@@ -178,6 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Brexis\LaravelWorkflow\WorkflowServiceProvider::class,
+
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -227,6 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Workflow' => Brexis\LaravelWorkflow\Facades\WorkflowFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];
