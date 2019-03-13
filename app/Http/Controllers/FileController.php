@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 use Flow\Config as FlowConfig;
 use Flow\Request as FlowRequest;
+use Uuid;
 
 use App\Models\File;
 
@@ -39,9 +41,11 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
+        Log::info('FileController::store start');
 
         $config = new FlowConfig();
-        $config->setTempDir(storage_path() . '/tmp');
+        $flow_chunk_path = env('FLOW_CHUNK_PATH');
+        $config->setTempDir(storage_path() . "/${flow_chunk_path}");
         $config->setDeleteChunksOnSave(false);
 
         $file = new \Flow\File($config);
@@ -63,16 +67,18 @@ class FileController extends Controller
             return \Response::json(['error' => 'アップロードに失敗しました。'], 204);
         }
 
-        $filedir = '/upload/';
+        $project_file_path = env('PROJECT_FILE_PATH');
+        $filedir = "/${project_file_path}/";
 
+        /* このコードは削除した方が良い */
         if (!file_exists(public_path() . $filedir)) {
             mkdir(public_path() . $filedir, $mode = 0777, true);
         }
 
-        $identifier = md5($uploadFile['name']) . '-' . time();
+//        $identifier = md5($uploadFile['name']) . '-' . time();
+        $identifier = Uuid::generate(4);
         $p = pathinfo($uploadFile['name']);
 
-        /* hashファイル名と拡張子を結合 */
         $identifier .= "." . $p['extension'];
 
         /* アップロードパス */
@@ -84,12 +90,17 @@ class FileController extends Controller
 
             $data = File::create([
                 'mime' => $uploadFile['type'],
+                'original_filename' => $uploadFile['name'],
                 'size' => $request->getTotalSize(),
-                'storage_path' => $path,
-                'filename' => $uploadFile['name'],
+                'filename' => $identifier,
                 'disk' => 'local'
             ]);
             $file->deleteChunks();
+
+            Log::info($data);
+
+            Log::info('FileController::store end');
+
             return \Response::json($data, 200);
         }
 

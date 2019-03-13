@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Route::resource('/workflow/project', 'ProjectController');
 Route::resource('/workflow/workflow', 'WorkflowLogController');
+Route::resource('/workflow/command-stdout', 'CommandStdoutController');
 Route::resource('/workflow/file', 'FileController');
+Route::resource('/workflow/config', 'WorkflowConfigController');
 
 Route::get('workflow/task/{id}', 'TaskController@finish');

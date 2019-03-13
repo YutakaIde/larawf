@@ -19,17 +19,16 @@
                     <div class="form-group row">
                         <label for="File" class="col-sm-3 col-form-label">File</label>
                         <div class="col-sm-9" id="File">
-                            <div class="flow-drop" ondragenter="jQuery(this).addClass('flow-dragover');" ondragend="jQuery(this).removeClass('flow-dragover');"  ondragleave="jQuery(this).removeClass('flow-dragover');" ondrop="jQuery(this).removeClass('flow-dragover');">
-                                Just drag and drop files here
-                            </div>
-
-                            <div class="progress flow-progress">
+                            <div class="progress flow-progress" style="height: 1px;">
                                 <div class="progress-bar active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" >
                                     <span class="sr-only">45% Complete</span>
                                 </div>
                             </div>
-
-                            <input class="form-control" type="text" readonly>
+                            <div class="flow-drop" ondragenter="jQuery(this).addClass('flow-dragover');" ondragend="jQuery(this).removeClass('flow-dragover');"  ondragleave="jQuery(this).removeClass('flow-dragover');" ondrop="jQuery(this).removeClass('flow-dragover');">
+                                Just drag and drop files here
+                            </div>
+                            <input type="text" class="form-control" name="file_name" id="file_name" readonly>
+                            <input type="text" class="form-control" name="file_id" id="file_id" readonly style="display:none;">
                         </div>
                     </div>
 

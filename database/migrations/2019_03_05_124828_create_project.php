@@ -19,6 +19,7 @@ class CreateProject extends Migration
             $table->string("name", 64);
             $table->string("currentPlace", 64)->nullable();
             $table->integer("workflow_id");
+            $table->integer("file_id");
             $table->timestamps();      // created_at と updated_at カラムの作成.
         });
     }

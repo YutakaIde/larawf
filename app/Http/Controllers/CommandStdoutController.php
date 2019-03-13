@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-
 use App\Models\WorkflowLog;
 
-class WorkflowLogController extends Controller
+class CommandStdoutController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +14,7 @@ class WorkflowLogController extends Controller
      */
     public function index()
     {
-        $workflow_logs = WorkflowLog::all();
-
-        return view('workflow.workflow.index', ['workflow_logs' => $workflow_logs]);
+        //
     }
 
     /**
@@ -50,7 +46,9 @@ class WorkflowLogController extends Controller
      */
     public function show($id)
     {
+        $workflow_log = WorkflowLog::find($id);
 
+        return view('workflow.command-stdout.show', ['workflow_log' => $workflow_log]);
     }
 
     /**
@@ -73,7 +71,7 @@ class WorkflowLogController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        //
     }
 
     /**

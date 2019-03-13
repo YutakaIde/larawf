@@ -2,12 +2,13 @@
 
 namespace App\Listeners;
 
-use Brexis\LaravelWorkflow\Events\GuardEvent;
 use Illuminate\Support\Facades\Log;
 
-use App\Models\Task;
+use Brexis\LaravelWorkflow\Events\GuardEvent;
+
 use App\Models\WorkflowLog;
 use App\Models\WorkflowTemplate;
+use App\Models\Task;
 
 use App\Jobs\AutoTask;
 
@@ -25,8 +26,7 @@ class ProjectWorkflowSubscriber
      */
     public function onLeave($event)
     {
-
-        Log::debug('ProjectWorkflowSubscriber::onLeave start .');
+        Log::debug('ProjectWorkflowSubscriber::onLeave start');
 
         $originalEvent = $event->getOriginalEvent();
 
@@ -53,8 +53,7 @@ class ProjectWorkflowSubscriber
 
         $workflow_log->save();
 
-        Log::debug('ProjectWorkflowSubscriber::onLeave end .');
-
+        Log::debug('ProjectWorkflowSubscriber::onLeave end');
     }
 
     /**
@@ -76,8 +75,7 @@ class ProjectWorkflowSubscriber
      */
     public function onEntered($event)
     {
-
-        Log::debug('ProjectWorkflowSubscriber::onEntered start .');
+        Log::debug('ProjectWorkflowSubscriber::onEntered start');
 
         $originalEvent = $event->getOriginalEvent();
 
@@ -108,8 +106,7 @@ class ProjectWorkflowSubscriber
 
         $workflow_log->save();
 
-        Log::debug('ProjectWorkflowSubscriber::onEntered end .');
-
+        Log::debug('ProjectWorkflowSubscriber::onEntered end');
     }
 
     /**

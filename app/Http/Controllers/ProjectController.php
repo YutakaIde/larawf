@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
-use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 use Workflow;
+
+use App\Models\Project;
+use App\Models\Task;
 
 class ProjectController extends Controller
 {
@@ -22,7 +23,7 @@ class ProjectController extends Controller
 
         foreach ($projects as $project) {
             $project->current_place = key((array)$project->currentPlace);
-            if(!is_null($project->current_place)) {
+            if (!is_null($project->current_place)) {
                 $task = Task::where('name', $project->current_place)->first();
                 $project->task_type = $task->type;
             }
@@ -49,15 +50,16 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        Log::info('ProjectController::store .');
+        Log::info('ProjectController::store start');
 
         $project = new Project;
         $project->name = $request->input('name');
         $project->workflow_id = $request->input('workflow_id');
+        $project->file_id = $request->input('file_id');
 
         $project->save();
 
-        Log::info('ProjectController::store end .');
+        Log::info('ProjectController::store end');
 
         return redirect('workflow/project/create');
     }

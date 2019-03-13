@@ -3,22 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Workflow;
 use Illuminate\Support\Facades\Log;
+
+use Workflow;
 
 use App\Models\Project;
 use App\Models\WorkflowTemplate;
-
 
 class TaskController extends Controller
 {
 
     public function finish($id)
     {
-
-//        $data = array();
-
-        Log::info('TaskController:: start .');
+        Log::info('TaskController:: start');
 
         $project = Project::find($id);
 
@@ -33,18 +30,11 @@ class TaskController extends Controller
             $workflow->apply($project, "${current_place}_finished");
         }
 
-        Log::info('TaskController:: transition .');
-
         $project->save();
 
-//        $data['name1'] = $project;
-
-        Log::info('TaskController:: end .');
+        Log::info('TaskController:: end');
 
         return redirect('workflow/workflow');
-
-//        redirect view('task1', $data);
-
     }
 
 }

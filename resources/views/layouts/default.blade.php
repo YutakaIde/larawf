@@ -48,6 +48,9 @@
                     <li>
                         <a href="/workflow/workflow">Timeline</a>
                     </li>
+                    <li>
+                        <a href="/workflow/config/1">Config</a>
+                    </li>
                 </ul>
             </li>
             <li>
@@ -175,7 +178,9 @@
         });
 
         // Show a place for dropping/selecting files
-        $('.flow-drop').show();
+//        $('.flow-drop').show();
+        $('.flow-progress').hide();
+        $('#file_name').hide();
         r.assignDrop($('.flow-drop')[0]);
 
         // Handle file add event
@@ -195,11 +200,19 @@
         });
 
         r.on('fileSuccess', function (file, message) {
+            var response = JSON.parse(message);
+            $("#file_id").val(response.id);
+            $("#file_name").val(response.original_filename);
+
             setTimeout(function () {
                 $('.flow-progress').fadeOut(400, function () {
+                    $('.progress-bar').css({width: '0%'}).attr("aria-valuenow", 0);
                     $(this).hide();
+                    $('.flow-drop').hide();
+                    $('#file_name').show();
                 })
             }, 1000)
+
         });
 
     })();

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class File extends Model
 {
 
-    protected $fillable = ['mime', 'storage_path', 'thumbnail_path', 'filename', 'size', 'disk'];
+    protected $fillable = ['filename', 'original_filename', 'mime', 'size', 'disk'];
 
     public static function boot()
     {

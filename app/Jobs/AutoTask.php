@@ -7,16 +7,17 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Support\Facades\Log;
+
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
-use Illuminate\Support\Facades\Log;
 
 use Workflow;
 
-use App\Models\Task;
 use App\Models\Project;
 use App\Models\WorkflowLog;
 use App\Models\WorkflowTemplate;
+use App\Models\Task;
 
 class AutoTask implements ShouldQueue
 {
@@ -44,8 +45,7 @@ class AutoTask implements ShouldQueue
      */
     public function handle()
     {
-
-        Log::debug('AutoTask:: start .');
+        Log::debug('AutoTask:: start');
 
         $project = Project::find($this->project_id);
         $workflow = Workflow::get($project, $this->workflow_name);
@@ -88,7 +88,7 @@ class AutoTask implements ShouldQueue
         }
 
         $project->save();
-        Log::debug('AutoTask:: end .');
 
+        Log::debug('AutoTask:: end');
     }
 }

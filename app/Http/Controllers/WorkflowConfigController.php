@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-use App\Models\WorkflowLog;
+use App\Models\Task;
 
-class WorkflowLogController extends Controller
+class WorkflowConfigController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,7 @@ class WorkflowLogController extends Controller
      */
     public function index()
     {
-        $workflow_logs = WorkflowLog::all();
-
-        return view('workflow.workflow.index', ['workflow_logs' => $workflow_logs]);
+        //
     }
 
     /**
@@ -50,6 +48,9 @@ class WorkflowLogController extends Controller
      */
     public function show($id)
     {
+        $tasks = Task::where('workflow_id', $id)->get();
+
+        return view('workflow.config.show', ['tasks' => $tasks]);
 
     }
 
@@ -73,7 +74,7 @@ class WorkflowLogController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        //
     }
 
     /**
